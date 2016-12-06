@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/jquery.js"></script>
+		<script src="js/five.js"></script>
+	</head>
+	<style>
+	ul,li,h1,h2,h3,h4,h5,h6{
+		/*position:relative;*/
+		margin:0;
+		padding:0;
+		list-style: none;
+	}
+	body{
+		background: url(5.jpg) no-repeat;
+		background-attachment: fixed;
+		background-size:cover;
+	}
+		#canvas{
+			border:1px solid #000;
+			position: absolute;
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
+			margin:auto;
+			display:block; 
+			background-repeat:no-repeat ;
+			background-size:cover;
+			border-radius:10px;
+		}
+		.box{
+			transition: all 0.2s ease;
+		}
+		#close{
+			position:absolute;
+			right:-20px;
+			top:-20px;
+			width:30px;
+			height:30px;
+			text-align: center;
+			line-height:30px;
+			transform:rotate(45deg);
+			background:#C08F4A;
+			border-radius:50%;
+			font-size:20px;
+			cursor: pointer;
+		}
+		#biao1{
+			display:block;
+			background-image: url(01.png);
+			position:absolute;
+			top:150px;
+			left:100px;
+			background-size:cover;
+			
+		}
+	
+		#biao2{
+			display:block;
+			background-image: url(01.png);
+			position:absolute;
+			top:400px;
+			left:100px;
+			background-size:cover;
+			
+		}
+		.box{
+			transition: all .8s ease-in-out;
+			width:500px;
+			height:500px;
+			background-image: url(1.jpg);
+			background-repeat:no-repeat ;
+			background-size:cover;
+			position:absolute;
+			margin:auto;
+			right:0;
+			left:0;
+			top:0;
+			bottom:0;
+			box-shadow: 0 0 0 1000px rgba(0,0,0,0.7);
+			z-index:2;
+			transform:scale(0,0);
+		}
+		.box.active{
+			transform:scale(1,1);
+		}
+		.box img{
+			width:100%;
+		}
+		.box a{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+			z-index:1;
+		}
+		/*页面中*/
+		.info{
+			position:relative;
+			transition: all .8s ease-in-out;
+			transform: translate3d();
+			position:absolute;
+			top:200px;
+			right:100px;
+		}
+		.second{
+			cursor: pointer;
+		}
+		.info img{
+			width:200px;
+			display:block;
+		}
+		.info .see{
+			position:absolute;
+			top:23px;
+			left:60px;
+			font-size:20px;
+			display:block;
+		}
+		.info .see1{
+			top:90px;
+		}
+		.info .see2{
+			top:160px;
+		}
+		.info .see3{
+			top:225px;
+		}
+		.info .see4{
+			top:295px;
+		}
+		.info .color{
+			color: red;
+		}
+		#center{
+			 position:absolute;
+			 left:0;
+			 right:0;
+			 top:-1500px;
+			 bottom:0;
+			 margin:auto;
+			 background:#F1F2ED;
+			 width:400px;
+			 height:300px;
+			 opacity: 0;
+			 transition: all .8s ease-in-out;
+			 z-index:111;
+		}
+		
+		#center img{
+			width:400px;
+		}
+		#center h1{
+			width:200px;
+			position:absolute;
+			top:20px;
+			margin:auto 25% ;
+			text-align: center;
+			font-size:35px;
+		}
+		#center h2{
+			width:200px;
+			position:absolute;
+			top:70px;
+			margin:auto 30% ;
+			text-align: center;
+			font-size:35px;
+		}
+		#agin,#menu{
+			width:100px;
+			height:40px;
+			border:1px solid #838383;
+			background-image:url(11.png);
+			background-size:cover;
+			/*z-index:1;*/
+			position:absolute;
+			bottom:30px;
+			right:60px;
+			text-align: center;
+			line-height: 40px;
+			font-size: 20px;
+			color:#010101;
+		}	
+		#menu{
+			position:absolute;
+			left:60px;
+			bottom:30px;
+			font-size:25px;
+		}
+	</style>
+	<body>
+		<audio id="audio" src="audio/1.wav"></audio>
+		<audio id="aud" src="audio/2.wav"></audio>
+		<canvas id="canvas" width="600" height="600" ></canvas>
+		
+		<canvas id="biao1" width="200" height="200"></canvas>
+		<canvas id="biao2" width="200" height="200"></canvas>
+		
+		
+		<div class="box">
+			<div id="close">+</div>
+		</div>
+		
+		<div class="info">
+			<div class="second">
+				<img src="p2.png" alt="" />
+				<div class="see">查看棋局</div>
+			</div>
+			
+			<div class="second">
+				<img src="p2.png" alt="" />
+				<div class="see see1">重新开始</div>
+			</div>
+			<div class="second">
+				<img src="p2.png" alt="" />
+				<div class="see see2">退出游戏</div>
+			</div>
+			<div class="second color">
+				<img src="p2.png" alt="" />
+				<div class="see see3">人人对战</div>
+			</div>
+			<div class="second">
+				<img src="p2.png" alt="" />
+				<div class="see see4">人机对战</div>
+			</div>
+		</div>
+		<div id="center" class='infoa'>
+			<img src="10.png" alt="" />
+			<div id="text">
+				<h1></h1>
+				<h2>赢了！</h2>
+			</div>
+			
+			<div id="agin" class='button again'>再玩一次</div>
+			<div id="menu">菜单</div>
+		</div>
+		
+	</body>
+	
+</html>
